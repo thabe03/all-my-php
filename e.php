@@ -1,6 +1,11 @@
 <?php
+session_start();
+if(empty($_SESSION['email'])==1 || empty($_SESSION['psw'])==1){
+  echo "404";
+  exit;
+}
 
-include 'index.php';
+include 'header.php';
 
 if (filter_has_var(INPUT_POST, 'submit')) { //bool|filter_has_var(int, string): bool
     $e = htmlentities($_POST['e']);
@@ -23,3 +28,9 @@ if (filter_has_var(INPUT_POST, 'submit')) { //bool|filter_has_var(int, string): 
     </label>
     <button type="submit" name="submit">Submit</button>
 </form>
+
+<?php
+
+include 'footer.php';
+
+?>

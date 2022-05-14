@@ -1,6 +1,11 @@
 <?php 
+session_start();
+if(empty($_SESSION['email'])==1 || empty($_SESSION['psw'])==1){
+  echo "404";
+  exit;
+}
 
-include 'index.php';
+include 'header.php';
 
 if (filter_has_var(INPUT_POST, 'e')) { //bool|filter_has_var(int, string): bool
     if (filter_input(INPUT_POST, 'e', FILTER_VALIDATE_EMAIL)) { //mixed|filter_input(int, string, int, array|int 0)
@@ -21,3 +26,9 @@ if (filter_has_var(INPUT_POST, 'e')) { //bool|filter_has_var(int, string): bool
     </label>
     <button type="submit">Submit</button>
 </form>
+
+<?php
+
+include 'footer.php';
+
+?>

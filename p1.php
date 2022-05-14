@@ -1,6 +1,11 @@
 <?php
+session_start();
+if(empty($_SESSION['email'])==1 || empty($_SESSION['psw'])==1){
+  echo "404";
+  exit;
+}
 
-include 'index.php';
+include 'header.php';
 
 if (filter_has_var(INPUT_POST, 'submit')) {
     $n = htmlentities($_POST['n']);
@@ -8,9 +13,15 @@ if (filter_has_var(INPUT_POST, 'submit')) {
     $m = htmlentities($_POST['m']);
     if (!empty($e) && !empty($n) && !empty($m)) {
         if (filter_input(INPUT_POST, 'e', FILTER_VALIDATE_EMAIL)) {
-            $or = htmlentities('It worked');
-        } else {
-            $x = htmlentities('Email is NOT valid');
+          $toEmail = 'xi1le7@gmail.com';
+          $subject = 'PHP';
+          if(mail($toEmail, $subject, $m, 'Bonjour')){
+            $or= "Your email has been sent";
+          } else {
+            $msg= "Your push has failed";
+          }
+        }else {
+            $msg = htmlentities('Email is NOT valid');
         }
     } else {
         $msg = htmlentities('Please fill in all fields');
@@ -24,9 +35,6 @@ if (filter_has_var(INPUT_POST, 'submit')) {
 <?php } ?>
 <?php if (isset($or)) { ?>
     <div id="s" class="b"><?php echo $or; ?></div>
-<?php } ?>
-<?php if (isset($x)) { ?>
-    <div id="w" class="b"><?php echo $x; ?></div>
 <?php } ?>
   
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
@@ -183,3 +191,9 @@ if (filter_has_var(INPUT_POST, 'submit')) {
     /*iteration*/
 }
 </style>
+
+<?php
+
+include 'footer.php';
+
+?>

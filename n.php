@@ -1,6 +1,11 @@
 <?php
+session_start();
+if(empty($_SESSION['email'])==1 || empty($_SESSION['psw'])==1){
+  echo "404";
+  exit;
+}
 
-include 'index.php';
+include 'header.php';
 
 if (isset($_GET['n'])) {
     $n = htmlentities($_GET['n']);
@@ -16,3 +21,9 @@ if (isset($_GET['n'])) {
     </label>
     <input type="submit" value="Soumettre">
 </form>
+
+<?php
+
+include 'footer.php';
+
+?>
