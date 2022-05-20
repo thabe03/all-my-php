@@ -7,7 +7,7 @@ if(isset($_POST['submit'])) {
   $_SESSION['psw'] = $p;
   $dt = new DateTime("now", $dtz);
   $_SESSION['conn']=$dt->format("Y-m-d H:i:s");
-  header("Location: s.php"); 
+  header("Location: core/server.php"); 
 };
 ?>
 

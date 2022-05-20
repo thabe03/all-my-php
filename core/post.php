@@ -1,11 +1,6 @@
 <?php
-session_start();
-if(empty($_SESSION['email'])==1 || empty($_SESSION['psw'])==1){
-  echo "404";
-  exit;
-}
 
-include 'header.php';
+include '../header.php';
 
 if (filter_has_var(INPUT_POST, 'submit')) {
     $n = htmlentities($_POST['n']);
@@ -194,6 +189,6 @@ if (filter_has_var(INPUT_POST, 'submit')) {
 
 <?php
 
-include 'footer.php';
+include '../footer.php';
 
 ?>

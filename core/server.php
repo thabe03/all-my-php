@@ -1,11 +1,6 @@
 <?php
-session_start();
-if(empty($_SESSION['email'])==1 || empty($_SESSION['psw'])==1){
-  echo "404 try to log into a larger frame or try a password without spaces";
-  exit;
-}
 
-include 'header.php';
+include '../header.php';
 
 $s = [
     'Host Server Name' => $_SERVER['SERVER_NAME'],
@@ -69,6 +64,6 @@ $j = [
 
 <?php
 
-include 'footer.php';
+include '../footer.php';
 
 ?>

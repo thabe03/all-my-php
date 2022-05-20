@@ -1,40 +1,30 @@
 <?php
-session_start();
-if(empty($_SESSION['email'])==1 || empty($_SESSION['psw'])==1){
-  echo "404";
-  exit;
-}
 
-include 'header.php';
+include '../header.php';
 
-$dbhost = 'remotemysql.com';
-$dbuser = getenv('username');
-$dbname = getenv('username');
-$dbpass = getenv('dbpass');
-$db = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
-
-if(!$db){
-    die("Couldn't fetch data: " . mysqli_connect_error());
-}
+include '../connexion.php';
 
 if (filter_has_var(INPUT_POST, 'submit')) {
   $e = htmlentities(str_replace(" ","",$_POST['e']));
   $p = htmlentities(str_replace(" ","",$_POST['p']));
-  $q3 = "SELECT * FROM Users WHERE Email = '$e'";
-  $query3 = mysqli_query( $db, $q3 );
-  $num_rows = mysqli_num_rows($query3);
-  if($num_rows == 0) {
+  $query3 = $pdo->prepare("SELECT * FROM Users WHERE Email = '$e'");
+  $query3->execute();
+  if($query3->rowCount()) {
+    $msg = htmlentities('The user already exist');
+  } else {
     $msg = "";
     $q = "INSERT INTO Users (Email,Pass)"
       ." VALUES "
       ."('$e','$p')";
-    mysqli_query($db, $q); 
-  } else {
-    $msg = htmlentities('The user already exist');
+    $qp = $pdo->prepare($q);
+    $qp->execute();
   }  
 }
 $q2 = "SELECT * FROM Users";
-$query = mysqli_query($db, $q2);
+$query = $pdo->prepare($q2);
+$query->execute();
+$all = $query->fetchAll(PDO::FETCH_ASSOC);
+$query->closeCursor();
 ?>
 
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
@@ -62,11 +52,11 @@ $query = mysqli_query($db, $q2);
   </thead>
   <tbody>
     <?php
-      while ($retval = mysqli_fetch_array($query))
+      foreach($all as $a)
       {    
         echo "<tr>";     
-            echo "<td>{$retval['Email']}</td>";   
-            echo "<td>{$retval['Pass']}</td>";
+            echo "<td>{$a['Email']}</td>";   
+            echo "<td>{$a['Pass']}</td>";
         echo "</tr>";
       } 
     ?>
@@ -75,6 +65,7 @@ $query = mysqli_query($db, $q2);
 
 <?php
 
-include 'footer.php';
-mysqli_close($db);
+include '../footer.php';
+$pdo=null;
+
 ?>

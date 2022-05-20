@@ -1,11 +1,6 @@
 <?php
-session_start();
-if(empty($_SESSION['email'])==1 || empty($_SESSION['psw'])==1){
-  echo "404";
-  exit;
-}
 
-include 'header.php';
+include '../header.php';
 
 $n = "||||||||||||||||||||";
 $s = " Hello world!";
@@ -84,6 +79,6 @@ echo $n;
 echo (var_dump($s)); //format|i,b,f,s
 
 
-include 'footer.php';
+include '../footer.php';
 
 ?>

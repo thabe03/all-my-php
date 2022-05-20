@@ -1,3 +1,28 @@
+<?php
+session_start();
+if (empty($_SESSION['email']) == 1 || empty($_SESSION['psw']) == 1)
+{
+    echo "404";
+    exit;
+}
+
+$page = [
+'calcul' => 'core/calcul.php',
+'database' => 'database/database.php',
+'email' => 'core/email.php',
+'email2' => 'core/email2.php',
+'images' => 'database/images.php',
+'marvel' => 'api/marvel.php',
+'movie' => 'api/movie.php',
+'name' => 'core/name.php',
+'post' => 'core/post.php',
+'server' => 'core/server.php',
+'unesco' => 'api/unesco.php',
+'variable' => 'core/variable.php'
+];
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,35 +37,48 @@
     <a class="navbar-brand" href="#">Home</a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-    <li class="nav-item"><a class="nav-link" href="s.php">Server</a></li>
-    <li class="nav-item"><a class="nav-link" href="v.php">Variable</a></li>
-    <li class="nav-item"><a class="nav-link" href="n.php">Nom</a></li>
-    <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Filter
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="e.php">Email</a></li>
-            <li><a class="dropdown-item" href="e2.php">Email2</a></li> 
-          </ul>
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Page
+            Core
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="p1.php">Post1</a></li>
-            <li><a class="dropdown-item" href="#">Post2</a></li>  
-          </ul>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="c.php">Calcul</a></li>
-        <li class="nav-item"><a class="nav-link" href="db.php">Database</a></li>
-        <li class="nav-item"><a class="nav-link" href="m.php">Marvel</a></li>
-        <li class="nav-item"><a class="nav-link" href="o.php">Sign out</a></li>
-      </ul>
+            <?php foreach ($page as $k => $v)
+{
+    if (strpos($v, 'core') !== false)
+    { ?>
+            <li><a class="dropdown-item" href="<?php echo "https://all-my-php.thabe03.repl.co/$v"; ?>"><?php echo ucfirst($k); ?></a></li>
+            <?php
+    }
+} ?></ul></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Api
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <?php foreach ($page as $k => $v)
+{
+    if (strpos($v, 'api') !== false)
+    { ?>
+            <li><a class="dropdown-item" href="<?php echo "https://all-my-php.thabe03.repl.co/$v"; ?>"><?php echo ucfirst($k); ?></a></li>
+            <?php
+    }
+} ?></ul></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Database
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <?php foreach ($page as $k => $v)
+{
+    if (strpos($v, 'database') !== false)
+    { ?>
+            <li><a class="dropdown-item" href="<?php echo "https://all-my-php.thabe03.repl.co/$v"; ?>"><?php echo ucfirst($k); ?></a></li>
+            <?php
+    }
+} ?></ul></li>
+    </ul>
+    
     </div>
   </div>
 </nav>
 <br/>
-
-
